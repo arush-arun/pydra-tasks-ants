@@ -8,7 +8,7 @@ import os
 import sys
 from pathlib import Path
 
-# Use the working version
+# add your path here
 sys.path.insert(0, '/home/uqahonne/git_arush/pydra-tasks-ants')
 from fileformats.medimage import Nifti1
 from pydra.tasks.ants.v2.resampling.apply_transforms import ApplyTransforms
@@ -23,7 +23,7 @@ def clear_cache():
     cache_dir = Path.home() / ".cache" / "pydra"
     if cache_dir.exists():
         shutil.rmtree(cache_dir)
-        print(f"🧹 Cleared cache: {cache_dir}")
+        print(f"Cleared cache: {cache_dir}")
 
 def test_apply_transforms():
     """Test antsApplyTransforms with real data"""
@@ -31,9 +31,10 @@ def test_apply_transforms():
     # Setup
     setup_ants()
     clear_cache()
+    #change your directory
     os.chdir('/home/uqahonne/uq/nif/AIS/pydra-tasks-ants')
 
-    # Input files (real medical imaging data)
+    # Input files - needs to be .nii
     moving_path = "test_output/nii_files/moving.nii"
     reference_path = "test_output/nii_files/fixed.nii"
 
@@ -49,7 +50,7 @@ def test_apply_transforms():
     moving_size = Path(moving_path).stat().st_size / (1024*1024)
     reference_size = Path(reference_path).stat().st_size / (1024*1024)
 
-    print(f"📊 Real Data:")
+    print(f" Real Data:")
     print(f"   Moving: {moving_path} ({moving_size:.1f} MB)")
     print(f"   Reference: {reference_path} ({reference_size:.1f} MB)")
 
@@ -77,11 +78,11 @@ def test_apply_transforms():
         print(f"   {task.cmdline}")
 
         # Execute
-        print(f"\n⚡ Executing antsApplyTransforms...")
+        print(f"\n Executing antsApplyTransforms...")
         result = task()
 
         # Check result
-        print(f"   Return code: {result.return_code}")
+        print(f"  Return code: {result.return_code}")
 
         if result.stderr:
             print(f"   stderr: {result.stderr}")
